@@ -1,2 +1,2 @@
-# borderlinne_api
-Main Backend of BorderLinne
+# Squad Backend
+Main Backend Squad
