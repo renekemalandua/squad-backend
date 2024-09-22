@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id() @default(autoincrement())
+  photo       String   @default("https://res.cloudinary.com/dayiorfxq/image/upload/v1714483169/professional/images/pwj9eco6xvl48oke3fbu.webp")
+  cover       String   @default("https://res.cloudinary.com/dayiorfxq/image/upload/v1714483169/professional/images/pwj9eco6xvl48oke3fbu.webp")
+  name        String
+  email       String   @unique
+  password    String
+  is_verified Boolean  @default(false)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+
+  Post    Post[]
+  Comment Comment[]
+  Story Story[]
+}
+
+model Post {
+  id         Int      @id() @default(autoincrement())
+  photo      String?
+  desc       String
+  created_at DateTime @default(now())
+
+  Comment Comment[]
+  User    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  Int
+}
+
+model Comment {
+  id         Int      @id() @default(autoincrement())
+  desc       String
+  created_at DateTime @default(now())
+
+  Post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId Int
+  User   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+}
+
+model Story {
+  id         Int      @id() @default(autoincrement())
+  photo      String
+  created_at DateTime @default(now())
+
+  User   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+}

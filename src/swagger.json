@@ -1,0 +1,137 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "title":"Api da Squad",
+        "description": "Essa é a documentção do backend da Squad",
+        "termsOfService": "http://localhost:3000",
+        "contact":{
+            "email": "kemalanduar@gmail.com"
+        },
+        "version":"1.0.0"
+    },
+    "servers":[
+        {
+            "url":"http://localhost:8000",
+            "description":"Api de test"
+        }
+    ], 
+    "paths":{
+        "/users/create":{
+            "post":{
+                "summary":"Creates a new user",
+                "description":"Essa rota é responsavel por cadastrar um novo usuario",
+                "tags":["Users"],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples":{
+                                "User":{
+                                    "value":{
+                                        "name":"René Kemalandua",
+                                        "email":"kemalanduar@gmail.com",
+                                        "password":"1234"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "400":{
+                        "description": "User creation failed"
+                    },
+                    "201": {
+                        "description": "User created successfully"
+                    }
+                }
+            }
+        },
+        "/users/delete/{id}":{
+            "delete":{
+                "summary":"Deletes a user by ID",
+                "description":"Essa rota é responsavel por cadastrar um novo usuario",
+                "tags":["Users"],
+                "parameters":{
+                    "name": "id",
+                    "required": true,
+                    "schema":{
+                      "type": "integer",
+                      "description": "The user ID"
+                    }
+                },
+                "responses":{
+                    "400":{
+                        "description": "Error deleting user"
+                    },
+                    "200": {
+                        "description": "User deleted successfully"
+                    }
+                }
+            }
+        },
+        "/users/find/{id}":{
+            "delete":{
+                "summary":"Retrieves a user by ID",
+                "description":"Essa rota é responsavel por cadastrar um novo usuario",
+                "tags":["Users"],
+                "parameters":{
+                    "name": "id",
+                    "required": true,
+                    "schema":{
+                      "type": "integer",
+                      "description": "The user ID"
+                    }
+                },
+                "responses":{
+                    "400":{
+                        "description": "Error deleting user"
+                    },
+                    "200": {
+                        "description": "User deleted successfully"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas":{
+            "User":{
+                "type":"object",
+                "properties": {
+                    "id":{
+                        "type":"int"
+                    },
+                    "photo":{
+                        "type":"string"
+                    },
+                    "cover":{
+                        "type":"string"
+                    },
+                    "name":{
+                        "type":"string"
+                    },
+                    "email":{
+                        "type":"string"
+                    },
+                    "password":{
+                        "type":"string"
+                    },
+                    "is_verified":{
+                        "type":"boolean"
+                    },
+                    "created_at":{
+                        "type":"DateTime"
+                    }
+                    ,
+                    "updated_at":{
+                        "type":"DateTime"
+                    }
+
+                }
+            }
+        }
+    }
+}
